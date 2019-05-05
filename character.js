@@ -1,4 +1,4 @@
-var character = {'cor':'#00FFFF', 'x': 20, 'y':tela.height-30, 'h':10, 'w':10, 'colisor': true}
+var character = {'cor':'#003366', 'x': 20, 'y':tela.height-30, 'h':10, 'w':10, 'colisor': true}
 const velocidade = 2;
 const aceleracao = 0.1;
 const pulo = -5;
@@ -17,23 +17,43 @@ function gravidade(){
 }
 
 function move(){
-	character.x += moveCoords.x;
+	if(moveCoords.x > 0)
+		if(!findBlockByVector(Math.ceil(Math.floor(character.x) / 10) * 10,character.y)){
+			character.x += moveCoords.x;
+		}else {
+			moveCoords.x = 0;
+		}
+	else if(moveCoords.x < 0){
+		if(!findBlockByVector((Math.ceil(Math.floor(character.x) / 10) * 10)-10,character.y)){
+			character.x += moveCoords.x;
+		}else {
+			moveCoords.x = 0;
+		}
+	}
 	character.y += moveCoords.y;
 	if(findBlockByVector(character.x, Math.ceil(Math.floor(character.y) / 10) * 10)){
 		character.y-=1;
 	}
 }
 
+function moveRight(){
+	while(moveCoords.x < velocidade){
+		moveCoords.x += velocidade;
+	}
+}
+
+function moveLeft(){
+	while(moveCoords.x > -velocidade){
+		moveCoords.x -= velocidade;
+	}
+}
+
 function keyDown(event){
 	//Check move X
 	if(event.key == 'd' || event.key == 'ArrowRight'){
-		while(moveCoords.x < velocidade){
-			moveCoords.x += velocidade;
-		}
+		moveRight();
 	}else if(event.key == 'a' || event.key == 'ArrowLeft'){
-		while(moveCoords.x > -velocidade){
-			moveCoords.x -= velocidade;
-		}
+		moveLeft();
 	}
 
 	//Check move Y
