@@ -19,8 +19,8 @@ function gravidade(){
 function move(){
 	character.x += moveCoords.x;
 	character.y += moveCoords.y;
-	if(findBlockByVector(Math.round(character.x), Math.round(character.y))){
-		character.y+=1;
+	if(findBlockByVector(character.x, Math.ceil(Math.floor(character.y) / 10) * 10)){
+		character.y-=1;
 	}
 }
 
@@ -63,5 +63,16 @@ function isGround(){
 document.addEventListener("keydown", keyDown, false);
 document.addEventListener("keyup", keyUp, false);
 
-setInterval(move, 10);
-setInterval(gravidade,10);
+function gameOver(){
+	if(character.y > tela.height){
+		character.y = tela.height-40;
+		character.x = 20;
+	}
+}
+
+function loop(){
+	move();
+	gravidade();
+	gameOver();
+}
+setInterval(loop, 10);

@@ -95,6 +95,8 @@ const mapa = [
 
 function findBlockByVector(x,y){
 	for(var i=0;i < mapa.length; i++){
+		if(x == mapa[i].x && y == mapa[i].y)
+			return true;
 		if(x >= mapa[i].x && x <= mapa[i].x+10){
 			if(y >= mapa[i].y && y <= mapa[i].y+10)
 				return true;
