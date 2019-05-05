@@ -57,7 +57,7 @@ function keyUp(event){
 }
 
 function isGround(){
-	return findBlockByVector(Math.round(character.x), Math.round(character.y+character.w));
+	return findBlockByVector(Math.ceil(character.x), Math.ceil(character.y+character.w));
 }
 
 document.addEventListener("keydown", keyDown, false);
